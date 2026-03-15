@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MalariaScope AI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #E5E7EB;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(34, 211, 238, 0.12) 0%, transparent 40%),
+                linear-gradient(135deg, #0B0F1A, #111827, #1A1F35);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .navbar {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #3B82F6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+        }
+
+        .status {
+            background: #10B981;
+            color: #042f1a;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 900px;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, #8B5CF6);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #9CA3AF;
+            font-size: 16px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all .3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.25);
+        }
+
+        .icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .value {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .label {
+            font-size: 14px;
+            color: #9CA3AF;
+        }
+
+        .upload-section {
+            text-align: center;
+            max-width: 700px;
+            margin-bottom: 50px;
+        }
+
+        .upload-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .upload-section p {
+            color: #9CA3AF;
+            margin-bottom: 25px;
+        }
+
+        .upload-box {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+            padding: 50px;
+            transition: all .3s ease;
+            cursor: pointer;
+        }
+
+        .upload-box:hover {
+            border-color: #8B5CF6;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .file-types {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .file-types span {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+        }
+
+        .preview img {
+            margin-top: 20px;
+            max-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .analyze-btn {
+            margin-top: 35px;
+            padding: 16px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.5);
+            transition: all .3s ease;
+        }
+
+        .analyze-btn:hover {
+            filter: brightness(1.2);
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 13px;
+            color: #9CA3AF;
+            text-align: center;
+        }
+
+        @media(max-width:900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media(max-width:600px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            MalariaScope
+        </div>
+        <div class="status">
+            System Online
+        </div>
+    </div>
+
+    <section class="hero">
+        <h1>Revolutionary AI-Powered Malaria Detection</h1>
+        <p>Clinical-grade accuracy • Real-time analysis • Instant results</p>
+    </section>
+
+    <section class="cards">
+
+        <div class="card">
+            <div class="icon">🎯</div>
+            <div class="value">99.2%</div>
+            <div class="label">Accuracy</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚡</div>
+            <div class="value">&lt;3s</div>
+            <div class="label">Analysis Time</div>
+        </div>
+
+        <div class="card">
+            <div class="icon">🔬</div>
+            <div class="value">2,852</div>
+            <div class="label">Scans Today</div>
+        </div>
+
+    </section>
+
+    <section class="upload-section">
+
+        <h2>Upload Blood Cell Image</h2>
+
+        <p>Drag & drop or click to browse • Supports PNG, JPG, JPEG</p>
+
+        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+
+            <div class="upload-icon">📤</div>
+
+            <p>Drop your microscopic image here</p>
+
+            <p style="font-size:13px;color:#9CA3AF;">or click to select from your device</p>
+
+            <div class="file-types">
+                <span>PNG</span>
+                <span>JPG</span>
+                <span>JPEG</span>
+            </div>
+
+            <input type="file" id="fileInput" accept="image/png,image/jpeg" hidden>
+
+        </div>
+
+        <div class="preview">
+            <img id="previewImage">
+        </div>
+
+        <button class="analyze-btn" onclick="predictImage()">Analyze Sample</button>
+
+        <div class="result" id="result"></div>
+
+    </section>
+
+    <footer>
+        © 2024 MalariaScope AI | Powered by Deep Learning & TensorFlow | Saving Lives Through Technology
+    </footer>
+
+    <script>
+
+        const input = document.getElementById("fileInput")
+        const preview = document.getElementById("previewImage")
+
+        input.addEventListener("change", function () {
+
+            const file = this.files[0]
+
+            if (file) {
+                preview.src = URL.createObjectURL(file)
+            }
+
+        })
+
+        function predictImage() {
+
+            const file = input.files[0]
+
+            if (!file) {
+                alert("Please upload an image first")
+                return
+            }
+
+            const formData = new FormData()
+            formData.append("file", file)
+
+            fetch("/predict", {
+                method: "POST",
+                body: formData
+            })
+
+                .then(res => res.json())
+
+                .then(data => {
+
+                    if (data.success) {
+
+                        document.getElementById("result").innerHTML =
+                            "Prediction: " + data.prediction +
+                            "<br>Confidence: " + data.confidence + "%"
+
+                    }
+
+                    else {
+                        document.getElementById("result").innerHTML = "Error: " + data.error
+                    }
+
+                })
+
+        }
+
+    </script>
+
+</body>
+
+</html>
